@@ -8,6 +8,12 @@
 
   <title>Costs Idea 1</title>
 </head>
+<style>
+  #container {
+    width: 500px;
+    height: 500px;
+  }
+</style>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -19,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     type: 'column'
   },
   title: {
-    text: 'Cost',
+    text: 'Cost per scenario',
     align: 'left'
   },
     xAxis: {
@@ -31,25 +37,29 @@ document.addEventListener('DOMContentLoaded', function () {
         text: 'Count trophies'
       },
       stackLabels: {
-        enabled: true
+        enabled: true,
+        formatter: function () {
+          return '$' + (this.total / 1000000000).toFixed(1) + ' B';
+        }
       },
       labels: {
         formatter: function () {
-          return '$' + (this.value / 1000000000).toFixed(1) + 'B';
+          return '$' + (this.value / 1000000000).toFixed(1) + ' B';
         }
       }
     },
     legend: {
       align: 'left',
-      x: 70,
+      x: 75,
       verticalAlign: 'top',
-      y: 70,
+      y: 25,
       floating: true,
       backgroundColor:
         Highcharts.defaultOptions.legend.backgroundColor || 'white',
       borderColor: '#CCC',
       borderWidth: 1,
-      shadow: false
+      shadow: false,
+      layout: 'vertical'
     },
     tooltip: {
       headerFormat: '<b>{point.x}</b><br/>',
@@ -65,25 +75,25 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     series: [{
       name: 'Education',
-      data: [3000000000],
+      data: [3123456789],
       dataLabels: {
         enabled: true,
         formatter: function() {
-          return '$' + (this.y / 1000000000).toFixed(1) + 'B';
+          return '$' + (this.y / 1000000000).toFixed(1) + ' B';
         }
       }
     }, {
       name: 'Health',
-      data: [14000000000],
+      data: [14987654321],
       dataLabels: {
         enabled: true,
         formatter: function() {
-          return '$' + (this.y / 1000000000).toFixed(1) + 'B';
+          return '$' + (this.y / 1000000000).toFixed(1) + ' B';
         }
       }
     }, {
       name: 'GDP',
-      data: [1000000000],
+      data: [1000999000],
       dataLabels: {
         enabled: true,
         formatter: function() {
