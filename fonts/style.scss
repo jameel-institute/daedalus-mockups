@@ -95,3 +95,17 @@
          url('../fonts/ImperialSansText-Semibold.woff2') format('woff2');
     font-weight: 600;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'ImperialSansDisplay', sans-serif;
+}
+
+p, label, span, div, input, button, textarea {
+    font-family: 'ImperialSansText', sans-serif;
+    font-weight: 500;
+}
+
+.highcharts-credits {
+    display: none !important;
+}
+
