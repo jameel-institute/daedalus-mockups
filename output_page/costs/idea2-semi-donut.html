@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../fonts/style.scss">
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+
+  <title>Costs Idea 2</title>
+</head>
+<style>
+
+#container {
+  width: 500px;
+  height: 300px;
+}
+
+</style>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/sunburst.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<!-- Fairly nice -->
+<script src="../../themes/avocado.js"></script>
+<!-- <script src="../../themes/sunset.js"></script> -->
+
+<script>
+const data = [{
+    id: '0.0',
+    parent: '',
+    name: 'Scenario 1'
+}, {
+    id: '1.gdp',
+    parent: '0.0',
+    name: 'GDP'
+}, {
+    id: '1.edu',
+    parent: '0.0',
+    name: 'Education'
+}, {
+    id: '1.health',
+    parent: '0.0',
+    name: 'Life years',
+    value: 4.8
+},
+
+// GDP
+{
+    id: '2.1',
+    parent: '1.gdp',
+    name: 'Closures',
+    value: 0.2
+},
+{
+    id: '2.2',
+    parent: '1.gdp',
+    name: 'Absences',
+    value: 0.7
+},
+
+// Education
+{
+    id: '2.3',
+    parent: '1.edu',
+    name: 'Closures',
+    value: 0.5
+},
+{
+    id: '2.5',
+    parent: '1.edu',
+    name: 'Absences',
+    value: 0.8
+},
+]
+
+document.addEventListener('DOMContentLoaded', function () {
+Highcharts.chart('container', {
+    chart: {
+        height: '100%'
+    },
+
+    // Let the center circle be transparent
+    colors: ['transparent'].concat(Highcharts.getOptions().colors),
+
+    title: {
+        text: 'Total cost as % of GDP'
+    },
+
+    subtitle: {
+        text: '6.2%',
+        verticalAlign: 'middle',
+        y: 20,
+        style: {
+            fontSize: '1.2rem'
+        }
+    },
+
+    series: [{
+        type: 'sunburst',
+        data: data,
+        name: 'Root',
+        allowDrillToNode: true,
+        borderRadius: 3,
+        cursor: 'pointer',
+        dataLabels: {
+            format: '{point.name}',
+            filter: {
+                property: 'innerArcLength',
+                operator: '>',
+                value: 16
+            }
+        },
+        startAngle: -90,
+        endAngle: 90,
+        levels: [{
+            level: 1,
+            levelIsConstant: false,
+            dataLabels: {
+                filter: {
+                    property: 'outerArcLength',
+                    operator: '>',
+                    value: 64
+                }
+            },
+        }, {
+            level: 2,
+            colorByPoint: true,
+        },
+        {
+            level: 3,
+            colorVariation: {
+                key: 'brightness',
+                to: -0.5
+            },
+            dataLabels: {
+                enabled: false
+            }
+        }],
+        animation: false,
+    }],
+
+    tooltip: {
+        valueSuffix: '%',
+        pointFormat: '<b>{point.name}</b>: {point.value:.2f}%'
+    }
+});
+});
+</script>
+<figure class="highcharts-figure">
+<div id="container"></div>
+<p class="highcharts-description">
+Click on a parent node to drill down and inspect the tree in more detail.
+</p>
+</figure>
