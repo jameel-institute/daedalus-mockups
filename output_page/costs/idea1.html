@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     type: 'column'
   },
   title: {
-    text: 'Cost per scenario',
+    text: 'Scenario cost',
     align: 'left'
   },
     xAxis: {
@@ -34,17 +34,17 @@ document.addEventListener('DOMContentLoaded', function () {
     yAxis: {
       min: 0,
       title: {
-        text: 'Count trophies'
+        text: '% of GDP'
       },
       stackLabels: {
         enabled: true,
         formatter: function () {
-          return '$' + (this.total / 1000000000).toFixed(1) + ' B';
+          return (this.total).toFixed(1) + '%';
         }
       },
       labels: {
         formatter: function () {
-          return '$' + (this.value / 1000000000).toFixed(1) + ' B';
+          return (this.value).toFixed(1) + '%';
         }
       }
     },
@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
       layout: 'vertical'
     },
     tooltip: {
-      headerFormat: '<b>{point.x}</b><br/>',
-      pointFormat: '{series.name}: {point.y}<br/>Total: ${point.stackTotal}'
+      headerFormat: '<small>{point.x}</small><br/>',
+      pointFormat: '<b>{series.name}: {point.y}%</b><br/>Total: {point.stackTotal}%'
     },
     plotOptions: {
       column: {
@@ -75,29 +75,29 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     series: [{
       name: 'Education',
-      data: [3123456789],
+      data: [0.3],
       dataLabels: {
         enabled: true,
         formatter: function() {
-          return '$' + (this.y / 1000000000).toFixed(1) + ' B';
+          return (this.y).toFixed(1) + '%';
         }
       }
     }, {
-      name: 'Health',
-      data: [14987654321],
+      name: 'Life years',
+      data: [5.6],
       dataLabels: {
         enabled: true,
         formatter: function() {
-          return '$' + (this.y / 1000000000).toFixed(1) + ' B';
+          return (this.y).toFixed(1) + '%';
         }
       }
     }, {
       name: 'GDP',
-      data: [1000999000],
+      data: [0.4],
       dataLabels: {
         enabled: true,
         formatter: function() {
-          return '$' + (this.y / 1000000000).toFixed(1) + 'B';
+          return (this.y).toFixed(1) + '%';
         }
       }
     }]
