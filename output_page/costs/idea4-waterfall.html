@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../fonts/style.scss">
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+
+  <title>Costs Idea 4</title>
+</head>
+<style>
+#container {
+  width: 800px;
+  height: 300px;
+}
+
+#hc-tooltip {
+  width: 400px;
+  height: 150px;
+}
+
+</style>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<!-- 
+<script src="../../themes/avocado.js"></script>
+<script src="../../themes/sunset.js"></script> -->
+<script src="../../themes/brand-light.js"></script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    Highcharts.chart('container', {
+    chart: {
+        type: 'waterfall'
+    },
+
+    title: {
+        text: 'Scenario 1'
+    },
+
+    xAxis: {
+        type: 'category'
+    },
+
+    yAxis: {
+        title: {
+            text: '% of GDP'
+        }
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    tooltip: {
+        pointFormat: '<b>{point.y:,.2f}%</b>'
+    },
+
+    series: [{
+        data: [{
+            name: 'Absences (Education)',
+            y: 0.2
+        }, {
+            name: 'Closures (Education)',
+            y: 0.1
+        },
+        {
+            name: 'Education',
+            isIntermediateSum: true,
+            color: Highcharts.getOptions().colors[1]
+        }, {
+            name: 'Absences (GDP)',
+            y: 0.35
+        }, {
+            name: 'Closures (GDP)',
+            y: 0.05
+        }, {
+            name: 'GDP',
+            isIntermediateSum: true,
+            color: Highcharts.getOptions().colors[1]
+        },
+        {
+            name: 'Life years',
+            y: 2.6
+        },
+        {
+            name: 'Total',
+            isSum: true,
+            color: Highcharts.getOptions().colors[2]
+        }],
+        dataLabels: {
+            enabled: true,
+            format: '{point.y:,.2f}%'
+        },
+        pointPadding: 0
+    }]
+});
+});
+</script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        Waterfall charts are used to visualize cumulative values,
+        where each data point contributes to a total. In this example,
+        points showing intermediate sums are used to indicate the
+        progression of the total.
+    </p>
+</figure>
