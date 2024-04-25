@@ -180,13 +180,11 @@ root.setThemes([
 var chart = root.container.children.push(am5map.MapChart.new(root, {
   panX: "rotateX",
   panY: "rotateY",
-  projection: am5map.geoOrthographic(),
+  projection: am5map.geoNaturalEarth1(),
   paddingBottom: 20,
   paddingTop: 20,
   paddingLeft: 20,
   paddingRight: 20,
-  rotationX: -100, // Initialize map on SE Asia
-  rotationY: -20,
   wheelX: "none",
   wheelY: "none",
 }));
@@ -253,10 +251,6 @@ polygonSeries.mapPolygons.template.on("active", function(active, target) {
   previousPolygon = target;
 });
 
-// function zoomToCentroid(centroid) {
-//   chart.zoomToGeoPoint(centroid, 3, true, 2000); // should be zoomToGeoBounds
-// }
-
 getCountryTargetAndDataItem = function(id) {
   const dataItem = polygonSeries.getDataItemById(id);
   const target = dataItem.get("mapPolygon");
@@ -274,16 +268,13 @@ selectCountry = function(id) {
 
     if (centroid) {
       chart.goHome(goHomeDuration); // Zoom out to basic zoom level before zooming in again, so that we never end up flying across the earth at a very low altitude (while rotating to a new country)
-      chart.animate({ key: "rotationX", to: -centroid.longitude, duration: rotationDuration, easing: am5.ease.inOut(am5.ease.cubic) });
-      chart.animate({ key: "rotationY", to: (amountToTiltTheEarthUpwardsBy-centroid.latitude), duration: rotationDuration, easing: am5.ease.inOut(am5.ease.cubic) });
       setTimeout(function() {
         // https://github.com/amcharts/amcharts5/blob/864581fd8a25033fb71963d09cd6e84d885c62a5/src/.internal/charts/map/MapPolygonSeries.ts#L221
         polygonSeries.zoomToDataItem(target.dataItem)
-        // zoomToCentroid(centroid);
         document.getElementById("overlay").style.zIndex = "1";
         document.getElementById("overlay").style.transition = "background-color 1s ease";
         document.getElementById("overlay").style.backgroundColor = "rgba(255, 255, 255, 0.3)";
-      }, rotationDuration); // Wait for rotation before trying to zoom
+      }, goHomeDuration); // Wait for zoom out before trying to zoom in
     }
   }
 }
