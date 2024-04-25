@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../fonts/style.scss">
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+
+  <title>Costs Idea 3</title>
+</head>
+<style>
+
+#container {
+  width: 800px;
+  height: 300px;
+}
+
+</style>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/sankey.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<!-- <script src="../../themes/avocado.js"></script> -->
+<script src="../../themes/sunset.js"></script>
+
+<script>
+    
+document.addEventListener('DOMContentLoaded', function () {
+Highcharts.chart('container', {
+    chart: {
+        inverted: true,
+    },
+    title: {
+        text: 'Scenario 1'
+    },
+    accessibility: {
+        point: {
+            valueDescriptionFormat: '{index}. {point.from} to {point.to}, {point.weight}.'
+        }
+    },
+    tooltip: {
+        headerFormat: null,
+        pointFormat:
+      '{point.fromNode.name} cost from <span style="text-transform: lowercase;">{point.toNode.name}</span>: {point.weight:.2f}% GDP',
+        nodeFormat: '{point.name}: {point.sum:.2f}% GDP',
+    },
+    series: [{
+        keys: ['from', 'to', 'weight'],
+
+        nodes: [
+            {
+                id: 'Total',
+            },
+            {
+                id: 'Education',
+            },
+            {
+                id: 'Absences',
+                offset: -200,
+            },
+            {
+                id: 'Closures',
+                offset: -200,
+            }
+        ],
+
+        data: [
+            ['Total', 'Education', 0.3],
+            ['Total', 'GDP', 0.4],
+            ['Total', 'Life years', 2.6],
+            ['Education', 'Absences', 0.2],
+            ['Education', 'Closures', 0.5],
+            ['GDP', 'Absences', 0.35],
+            ['GDP', 'Closures', 0.05],
+        ],
+        type: 'sankey',
+        name: 'Sankey demo series',
+    }]
+
+});
+});
+</script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        
+    </p>
+</figure>
