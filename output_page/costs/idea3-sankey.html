@@ -44,7 +44,7 @@ Highcharts.chart('container', {
     tooltip: {
         headerFormat: null,
         pointFormat:
-      '{point.fromNode.name} cost from <span style="text-transform: lowercase;">{point.toNode.name}</span>: {point.weight:.2f}% GDP',
+      '{point.fromNode.name} cost from {point.toNode.name}: {point.weight:.2f}% GDP',
         nodeFormat: '{point.name}: {point.sum:.2f}% GDP',
     },
     series: [{
