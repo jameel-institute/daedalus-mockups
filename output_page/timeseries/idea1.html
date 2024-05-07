@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../fonts/style.scss">
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+
+  <title>Timeseries idea 1</title>
+</head>
+
+<style>
+
+.chart {
+    height: 220px;
+}
+
+#container2 {
+    width: 800px;
+}
+</style>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    Highcharts.chart('container3', {
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            allowDecimals: false
+        },
+        yAxis: {
+            title: {
+                text: 'People'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name} had stockpiled <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+        },
+        plotOptions: {
+            area: {
+                pointStart: 1,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'USA',
+            data: [
+                null, null, null, null, null, 2, 9, 13, 50, 170, 299, 438, 841,
+                1169, 1703, 2422, 3692, 5543, 7345, 12298, 18638, 22229, 25540,
+                28133, 29463, 31139, 31175, 31255, 29561, 27552, 26008, 25830,
+                26516, 27835, 28537, 27519, 25914, 25542, 24418, 24138, 24104,
+                23208, 22886, 23305, 23459, 23368, 23317, 23575, 23205, 22217,
+                21392, 19008, 13708, 11511, 10979, 10904, 11011, 10903, 10732,
+                10685, 10577, 10526, 10457, 10027, 8570, 8360, 7853, 5709, 5273,
+                5113, 5066, 4897, 4881, 4804, 4717, 4571, 4018, 3822, 3785, 3805,
+                3750, 3708, 3708
+            ]
+        }, {
+            name: 'USSR/Russia',
+            data: [null, null, null, null, null, null, null, null, null,
+                1, 5, 25, 50, 120, 150, 200, 426, 660, 863, 1048, 1627, 2492,
+                3346, 4259, 5242, 6144, 7091, 8400, 9490, 10671, 11736, 13279,
+                14600, 15878, 17286, 19235, 22165, 24281, 26169, 28258, 30665,
+                32146, 33486, 35130, 36825, 38582, 40159, 38107, 36538, 35078,
+                32980, 29154, 26734, 24403, 21339, 18179, 15942, 15442, 14368,
+                13188, 12188, 11152, 10114, 9076, 8038, 7000, 6643, 6286, 5929,
+                5527, 5215, 4858, 4750, 4650, 4600, 4500, 4490, 4300, 4350, 4330,
+                4310, 4495, 4477
+            ]
+        }]
+    });
+
+
+
+const randomData = [27.6, 28.8, 21.7, 34.1, 29.0, 28.4, 45.6, 51.7, 39.0,
+            60.0, 28.6, 32.1]
+Highcharts.chart('container2', {
+    chart: {
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Time series all combined into one plot',
+        align: 'left'
+    },
+    xAxis: [{
+        crosshair: true,
+        plotBands: [{
+                        from: 1,
+                        to: 3,
+                        color: 'rgba(200, 170, 213, .5)'
+                    },
+                    {
+                        from: 5,
+                        to: 6,
+                        color: 'rgba(200, 170, 213, .8)'
+                    },
+                    {
+                        from: 7,
+                        to: 11,
+                        color: 'rgba(200, 170, 213, .3)'
+                    }]
+    }],
+    yAxis: [{ // Primary yAxis
+        labels: {
+            format: '{value}',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: 'Population',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        plotLines: [{
+                        color: '#FF0000',
+                        width: 2,
+                        value: 10
+                    }]
+    }, { // Secondary yAxis
+        title: {
+            text: 'Vaccine uptake',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        labels: {
+            format: '{value} %',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        opposite: true
+    }],
+    tooltip: {
+        shared: true
+    },
+    legend: {
+        align: 'left',
+        x: 80,
+        verticalAlign: 'top',
+        y: 60,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
+    },
+    series: [{
+        name: 'Infections',
+        type: 'line',
+        yAxis: 1,
+        data: randomData
+
+    }, {
+        name: 'Vaccination uptake',
+        type: 'line',
+        data: [-13.6, -14.9, -5.8, -0.7, 3.1, 13.0, 14.5, 10.8, 5.8,
+            -0.7, -11.0, -16.4],
+        tooltip: {
+            valueSuffix: '%'
+        }
+    }, {
+        name: 'Hospital occupancy',
+        type: 'line',
+        yAxis: 1,
+        data: randomData.map((datum) => datum + Math.floor(Math.random() * 5) + 1)
+    }]
+});
+
+
+
+    /*
+The purpose of this demo is to demonstrate how multiple charts on the same page
+can be linked through DOM and Highcharts events and API methods. It takes a
+standard Highcharts config with a small variation for each data set, and a
+mouse/touch event handler to bind the charts together.
+*/
+
+
+/**
+ * In order to synchronize tooltips and crosshairs, override the
+ * built-in events with handlers defined on the parent element.
+ */
+['mousemove', 'touchmove', 'touchstart'].forEach(function (eventType) {
+    document.getElementById('container').addEventListener(
+        eventType,
+        function (e) {
+            let chart,
+                point,
+                i,
+                event;
+
+            for (i = 0; i < Highcharts.charts.length; i = i + 1) {
+                chart = Highcharts.charts[i];
+                // Find coordinates within the chart
+                event = chart.pointer.normalize(e);
+                // Get the hovered point
+                point = chart.series[0].searchPoint(event, true);
+
+                if (point) {
+                    point.highlight(e);
+                }
+            }
+        }
+    );
+});
+
+/**
+ * Override the reset function, we don't need to hide the tooltips and
+ * crosshairs.
+ */
+Highcharts.Pointer.prototype.reset = function () {
+    return undefined;
+};
+
+/**
+ * Highlight a point by showing tooltip, setting hover state and draw crosshair
+ */
+Highcharts.Point.prototype.highlight = function (event) {
+    event = this.series.chart.pointer.normalize(event);
+    this.onMouseOver(); // Show the hover marker
+    this.series.chart.tooltip.refresh(this); // Show the tooltip
+    this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
+};
+
+/**
+ * Synchronize zooming through the setExtremes event handler.
+ */
+function syncExtremes(e) {
+    const thisChart = this.chart;
+
+    if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
+        Highcharts.each(Highcharts.charts, function (chart) {
+            if (chart !== thisChart) {
+                if (chart.xAxis[0].setExtremes) { // It is null while updating
+                    chart.xAxis[0].setExtremes(
+                        e.min,
+                        e.max,
+                        undefined,
+                        false,
+                        { trigger: 'syncExtremes' }
+                    );
+                }
+            }
+        });
+    }
+}
+
+// Get the data. The contents of the data file can be viewed at
+Highcharts.ajax({
+    url: 'https://www.highcharts.com/samples/data/activity.json',
+    dataType: 'text',
+    success: function (activity) {
+
+        activity = JSON.parse(activity);
+        activity.datasets.forEach(function (dataset, i) {
+
+            // Add X values
+            dataset.data = Highcharts.map(dataset.data, function (val, j) {
+                return [(activity.xData[j] * 100), val];
+            });
+
+            let plotlines = [];
+            let yAxisTitle = null;
+            let xAxisTitle = null;
+            let plotbands = [{
+                from: 10,
+                to: 50,
+                color: 'rgba(200, 170, 213, .5)'
+            },
+            {
+                from: 204,
+                to: 258,
+                color: 'rgba(200, 170, 213, .8)'
+            },
+            {
+                from: 509,
+                to: 590,
+                color: 'rgba(200, 170, 213, .3)'
+            }];
+            switch (dataset.name) {
+                case 'Speed':
+                    dataset.name = 'Vaccination uptake';
+                    dataset.unit = '%';
+                    yAxisTitle = dataset.unit;
+                    plotbands = [];
+                    break;
+                case 'Elevation':
+                    dataset.name = 'Infections';
+                    dataset.unit = '';
+                    dataset.data = dataset.data.map(x => [x[0], x[1] * 1000]);
+                    break;
+                case 'Heart rate':
+                    dataset.name = 'Hospital occupancy';
+                    dataset.unit = '';
+                    dataset.data = dataset.data.map(x => [x[0], x[1] * 1000]);
+                    xAxisTitle = 'Day'
+                    plotlines = [{
+                        color: '#FF0000',
+                        width: 2,
+                        value: 150000
+                    }]
+                    break;
+            }
+
+            const chartDiv = document.createElement('div');
+            chartDiv.className = 'chart';
+            document.getElementById('container').appendChild(chartDiv);
+
+            Highcharts.chart(chartDiv, {
+                chart: {
+                    marginLeft: 60, // Keep all charts left aligned
+                    spacingTop: 20,
+                    spacingBottom: 20
+                },
+                title: {
+                    text: dataset.name,
+                    align: 'left',
+                    x: 50
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                xAxis: {
+                    title: {
+                        text: xAxisTitle,
+                    },
+                    crosshair: true,
+                    events: {
+                        setExtremes: syncExtremes
+                    },
+                    labels: {
+                        format: '{value}'
+                    },
+                    plotBands: plotbands
+                },
+                yAxis: {
+                    title: {
+                        text: yAxisTitle
+                    },
+                    plotLines: plotlines
+                },
+                tooltip: {
+                    positioner: function () {
+                        return {
+                            // right aligned
+                            x: (this.chart.chartWidth - this.label.width) - 30,
+                            y: 16
+                        };
+                    },
+                    borderWidth: 0,
+                    backgroundColor: 'none',
+                    pointFormat: '{point.y}',
+                    headerFormat: '',
+                    shadow: false,
+                    style: {
+                        fontSize: '18px'
+                    },
+                    valueDecimals: dataset.valueDecimals
+                },
+                series: [{
+                    data: dataset.data,
+                    name: dataset.name,
+                    type: dataset.type,
+                    color: Highcharts.getOptions().colors[i],
+                    fillOpacity: 0.3,
+                    tooltip: {
+                        valueSuffix: ' ' + dataset.unit
+                    }
+                }]
+            });
+        });
+    }
+});
+
+});
+
+</script>
+<body style="margin: 20px">
+    <figure class="highcharts-figure">
+        <p>This is placeholder text for a description of what the graphs show.</p>
+        <p>Advance investment in vaccines drives the level of vaccination uptake across the population. This affects the rate at which infection spreads.</p>
+        <p>The rate of spread of infection, combined with the fixed health service capacity, have some affect on the government policy response.</p>
+        <p>In turn, the policy response drives the infection rate, introducing a feedback loop.</p>
+        <div id="container"></div>
+        <div style="height: 400px">
+            <hr>
+        </div>
+        <div id="container2"></div>
+        <div style="height: 400px;">
+            <hr>
+        </div>
+        <div id="container3"></div>
+    </figure>
+</body>
