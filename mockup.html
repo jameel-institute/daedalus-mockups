@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../fonts/style.scss">
+  <link rel="stylesheet" href="./fonts/style.css">
   <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
 
   <title>Mockup 1</title>
@@ -39,6 +39,7 @@
   position: absolute;
   width: 100%;
   height: 100vh;
+  transition: background-color 0.5s ease;
   /* background-color: rgba(0, 0, 0, 0); */
   background: linear-gradient(to top, transparent 70%, rgba(255, 255, 255, 0.4));
 
@@ -158,6 +159,14 @@
   }
 }
 
+.back-to-inputs-button {
+  border-radius: 20px;
+  width: 60px;
+  height: 40px;
+  position: fixed !important;
+  top: 5px;
+}
+
 i {
   height: 25px;
   width: 25px;
@@ -190,7 +199,47 @@ label {
 <script>
 const countriesData = {"AF":"Afghanistan","AX":"Aland Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"Andorra","AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AW":"Aruba","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BT":"Bhutan","BO":"Bolivia, Plurinational State of","BQ":"Bonaire, Sint Eustatius and Saba","BA":"Bosnia and Herzegovina","BW":"Botswana","BV":"Bouvet Island","BR":"Brazil","IO":"British Indian Ocean Territory","BN":"Brunei Darussalam","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","KH":"Cambodia","CM":"Cameroon","CA":"Canada","CV":"Cape Verde","KY":"Cayman Islands","CF":"Central African Republic","TD":"Chad","GB-CHA":"Channel Islands","CL":"Chile","CN":"China","CX":"Christmas Island","CC":"Cocos (Keeling) Islands","CO":"Colombia","KM":"Comoros","CG":"Congo","CD":"Congo, the Democratic Republic of the","CK":"Cook Islands","CR":"Costa Rica","CI":"Cote d'Ivoire","HR":"Croatia","CU":"Cuba","CW":"Curacao","CY":"Cyprus","CZ":"Czech Republic","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Equatorial Guinea","ER":"Eritrea","EE":"Estonia","ET":"Ethiopia","FK":"Falkland Islands (Malvinas)","FO":"Faroe Islands","FJ":"Fiji","FI":"Finland","FR":"France","GF":"French Guiana","PF":"French Polynesia","TF":"French Southern Territories","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GI":"Gibraltar","GR":"Greece","GL":"Greenland","GD":"Grenada","GP":"Guadeloupe","GU":"Guam","GT":"Guatemala","GG":"Guernsey","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HM":"Heard Island and McDonald Islands","VA":"Holy See (Vatican City State)","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran, Islamic Republic of","IQ":"Iraq","IE":"Ireland","IM":"Isle of Man","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JE":"Jersey","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KI":"Kiribati","KP":"Korea, Democratic People's Republic of","KR":"Korea, Republic of","XK":"Kosovo","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Lao People's Democratic Republic","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MH":"Marshall Islands","MQ":"Martinique","MR":"Mauritania","MU":"Mauritius","YT":"Mayotte","MX":"Mexico","FM":"Micronesia, Federated States of","MD":"Moldova, Republic of","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MS":"Montserrat","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NR":"Nauru","NP":"Nepal","NL":"Netherlands","NC":"New Caledonia","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NU":"Niue","NF":"Norfolk Island","MK":"North Macedonia","MP":"Northern Mariana Islands","NO":"Norway","OM":"Oman","PK":"Pakistan","PW":"Palau","PS":"Palestinian, State of","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PN":"Pitcairn","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RE":"Reunion","RO":"Romania","RU":"Russian Federation","RW":"Rwanda","BL":"Saint Barthelemy","SH":"Saint Helena, Ascension and Tristan da Cunha","KN":"Saint Kitts and Nevis","LC":"Saint Lucia","MF":"Saint Martin (French Part)","PM":"Saint Pierre and Miquelon","VC":"Saint Vincent and the Grenadines","WS":"Samoa","SM":"San Marino","ST":"Sao Tome and Principe","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SX":"Sint Maarten (Dutch Part)","SK":"Slovakia","SI":"Slovenia","SB":"Solomon Islands","SO":"Somalia","ZA":"South Africa","GS":"South Georgia and the South Sandwich Islands","SS":"South Sudan","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SJ":"Svalbard and Jan Mayen","SZ":"Swaziland","SE":"Sweden","CH":"Switzerland","SY":"Syrian Arab Republic","TW":"Taiwan","TJ":"Tajikistan","TZ":"Tanzania, United Republic of","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TK":"Tokelau","TO":"Tonga","TT":"Trinidad and Tobago","TN":"Tunisia","TM":"Turkmenistan","TC":"Turks and Caicos Islands","TV":"Tuvalu","TR":"T\u00fcrkiye","UG":"Uganda","UA":"Ukraine","AE":"United Arab Emirates","GB":"United Kingdom","US":"United States","UM":"United States Minor Outlying Islands","UY":"Uruguay","UZ":"Uzbekistan","VU":"Vanuatu","VE":"Venezuela, Bolivarian Republic of","VN":"Viet Nam","VG":"Virgin Islands, British","VI":"Virgin Islands, U.S.","WF":"Wallis and Futuna","EH":"Western Sahara","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe"}
 
-let originalDisplayValueOfFields
+// How long you want the animation to take, in ms
+const animationDuration = 5000;
+// Calculate how long each ‘frame’ should last if we want to update the animation 60 times per second
+const frameDuration = 1000 / 60;
+// Use that to calculate how many frames we need to complete the animation
+const totalFrames = Math.round( animationDuration / frameDuration );
+// An ease-out function that slows the count as it progresses
+const easeOutQuartic = t => 1 - (--t * t * t * t);
+// The animation function, which takes an Element
+const animateCountUp = el => {
+	let frame = 0;
+	const countTo = parseInt( el.innerHTML.replace(/,/g, ''), 10 );
+	// Start the animation running 60 times per second
+	const counter = setInterval( () => {
+		frame++;
+		// Calculate our progress as a value between 0 and 1
+		// Pass that value to our easing function to get our
+		// progress on a curve
+		const progress = easeOutQuartic( frame / totalFrames );
+		// Use the progress value to calculate the current count
+		const currentCount = Math.round( countTo * progress );
+
+		// If the current count has changed, update the element
+		if ( parseInt( el.innerHTML, 10 ) !== currentCount ) {
+			el.innerHTML = currentCount.toLocaleString('en-US');;
+		}
+
+		// If we’ve reached our last frame, stop the animation
+		if ( frame === totalFrames ) {
+			clearInterval( counter );
+		}
+	}, frameDuration );
+};
+
+// Run the animation on all elements with a class of ‘countup’
+const animateNumbers = () => {
+	const countupEls = document.querySelectorAll( '.spin-number' );
+	countupEls.forEach( animateCountUp );
+};
+
+let originalDisplayValueOfFields;
 
 document.addEventListener("DOMContentLoaded", function() {
   const countrySelect = document.getElementById("countrySelect");
@@ -202,8 +251,8 @@ document.addEventListener("DOMContentLoaded", function() {
     option.textContent = name;
     countrySelect.appendChild(option);
   });
-
-  document.querySelector("#emptyCountryOption").selected = true;
+  
+  // document.querySelector("#emptyCountryOption").selected = true;
   document.querySelector("#emptyDiseaseOption").selected = true;
   // document.querySelector("#emptyResponseOption").selected = true;
   // document.querySelector("#emptyInvestmentOption").selected = true;
@@ -260,7 +309,37 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   });
+
+  initializePageOnTheOutputBit();
+
+  const outputs = document.getElementById("outputs");
+  const originalOutputsDisplay = outputs.style.display;
+  outputs.style.display = "none";
+  const originalOverlayBackgroundColor = document.getElementById('overlay').style.backgroundColor
+
+  runAnalysisButton.addEventListener("click", function() {
+    outputs.style.display = originalOutputsDisplay;
+    document.getElementById('overlay').style.backgroundColor = "rgba(0, 55, 138, 0.3)";
+
+    animateNumbers();
+    const inputs = document.getElementById("inputs");
+    inputs.style.transition = "transform 0.5s ease-in-out";
+    const distanceToTop = inputs.getBoundingClientRect().bottom + window.pageYOffset;
+    inputs.style.transform = `translateY(-${distanceToTop}px)`;
+    const backButton = document.createElement("button");
+    backButton.classList.add("horizontally-center");
+    backButton.classList.add("back-to-inputs-button");
+    backButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" fill="white"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>`
+    backButton.addEventListener("click", function() {
+      document.getElementById("inputs").style.transform = "translateY(0)";
+      backButton.remove();
+      document.getElementById('overlay').style.backgroundColor = originalOverlayBackgroundColor
+    });
+    document.getElementById("overlay").appendChild(backButton);
+  });
 });
+
+let chart;
 
 // Chart code
 am5.ready(function() {
@@ -280,7 +359,7 @@ root.setThemes([
 
 // Create the map chart
 // https://www.amcharts.com/docs/v5/charts/map-chart/
-var chart = root.container.children.push(am5map.MapChart.new(root, {
+chart = root.container.children.push(am5map.MapChart.new(root, {
   panX: "rotateX",
   panY: "rotateY",
   projection: am5map.geoOrthographic(),
@@ -429,12 +508,54 @@ chart.appear(1000, 100);
 
 }); // end am5.ready()
 
+const initializePageOnTheOutputBit = () => {
+    setTimeout(() => {
+        const countrySelect = document.querySelector("#countrySelect");
+        if (countrySelect) {
+            countrySelect.focus(); // Open the select
+            const thailandOption = countrySelect.querySelector("option[value='TH']");
+            if (thailandOption) {
+            thailandOption.selected = true;
+            countrySelect.dispatchEvent(new Event("change"));
+            }
+        }
+        const diseaseSelect = document.querySelector("#diseaseField select");
+        if (diseaseSelect) {
+            const optionToSelect = diseaseSelect.querySelector("option[value='3']");
+            if (optionToSelect) {
+                optionToSelect.selected = true;
+                diseaseSelect.dispatchEvent(new Event("change")); // Trigger change event after selection
+            }
+        }
+        const responseField = document.getElementById("responseField");
+        const responseButtons = responseField.querySelectorAll("button");
+        responseButtons[0].click();
+        const investmentField = document.getElementById("investmentField");
+        const investmentButtons = investmentField.querySelectorAll("button");
+        investmentButtons[0].click();
+    }, 1000);
+}
+
+
+
 </script>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/sunburst.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<!-- <script src="./themes/avocado.js"></script> -->
+<script src="./themes/sunset.js"></script>
+<script src="./output_page/costs/js/idea5-pie.js"></script>
 
 <!-- HTML -->
 <body>
   <div id="overlay">
-    <div id="inputs" class="horizontally-center">
+    <div id="inputs">
       <div class="field-row">
         <div class="field with-select">
           <i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="black"><path d="M51.7 295.1l31.7 6.3c7.9 1.6 16-.9 21.7-6.6l15.4-15.4c11.6-11.6 31.1-8.4 38.4 6.2l9.3 18.5c4.8 9.6 14.6 15.7 25.4 15.7c15.2 0 26.1-14.6 21.7-29.2l-6-19.9c-4.6-15.4 6.9-30.9 23-30.9h2.3c13.4 0 25.9-6.7 33.3-17.8l10.7-16.1c5.6-8.5 5.3-19.6-.8-27.7l-16.1-21.5c-10.3-13.7-3.3-33.5 13.4-37.7l17-4.3c7.5-1.9 13.6-7.2 16.5-14.4l16.4-40.9C303.4 52.1 280.2 48 256 48C141.1 48 48 141.1 48 256c0 13.4 1.3 26.5 3.7 39.1zm407.7 4.6c-3-.3-6-.1-9 .8l-15.8 4.4c-6.7 1.9-13.8-.9-17.5-6.7l-2-3.1c-6-9.4-16.4-15.1-27.6-15.1s-21.6 5.7-27.6 15.1l-6.1 9.5c-1.4 2.2-3.4 4.1-5.7 5.3L312 330.1c-18.1 10.1-25.5 32.4-17 51.3l5.5 12.4c8.6 19.2 30.7 28.5 50.5 21.1l2.6-1c10-3.7 21.3-2.2 29.9 4.1l1.5 1.1c37.2-29.5 64.1-71.4 74.4-119.5zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm144.5 92.1c-2.1 8.6 3.1 17.3 11.6 19.4l32 8c8.6 2.1 17.3-3.1 19.4-11.6s-3.1-17.3-11.6-19.4l-32-8c-8.6-2.1-17.3 3.1-19.4 11.6zm92-20c-2.1 8.6 3.1 17.3 11.6 19.4s17.3-3.1 19.4-11.6l8-32c2.1-8.6-3.1-17.3-11.6-19.4s-17.3 3.1-19.4 11.6l-8 32zM343.2 113.7c-7.9-4-17.5-.7-21.5 7.2l-16 32c-4 7.9-.7 17.5 7.2 21.5s17.5 .7 21.5-7.2l16-32c4-7.9 .7-17.5-7.2-21.5z"/></svg></i>
@@ -490,8 +611,74 @@ chart.appear(1000, 100);
       </div>
       <button id="runAnalysisButton">Run analysis</button>
     </div>
+    <style>
+      #outputs {
+        max-width: min(95%, 1600px);
+        max-height: min(80%, 500px);
+
+        p {
+          text-shadow: 0px 0px 4px rgba(0, 55, 138, 1);
+        }
+
+        #outputsBackground {
+          width: 80%;
+          padding: 1rem;
+          background-color: rgba(0, 55, 138, 0.5);
+        }
+      }
+    </style>
+    <div id="outputs" class="horizontally-center" style="color: white;">
+      <div id="outputsBackground" class="horizontally-center">
+        <h2 style="margin: 0;
+        text-align: left;">Scenario 1</h2>
+        <div id="totalCostContainer" style="width: 50%; display: inline-block;">
+          <p style="font-size: 1.5rem; margin-bottom: 0;">Total cost</p>
+          <div id="gdpTotalCostContainer" style="line-height: 1;">
+            <p style="font-size: 10rem; width: unset; display: inline-block;">7.00</p>
+            <div style="display: inline-block;">
+              <p style="font-size: 4.5rem; margin-bottom: 0">
+                %
+              </p>
+              <p style="font-size: 1.5rem; margin-top: 0; font-weight: normal !important;">
+                of GDP
+              </p>
+            </div>
+          </div>
+          <div id="usdTotalCostContainer" style="line-height: 1;">
+            <div style="display: inline-block; text-align: right;">
+              <p style="font-size: 2rem; margin-bottom: 0;">
+                $
+              </p>
+              <p style="font-size: 0.75rem; margin-top: 0; font-weight: normal !important;">
+                USD
+              </p>
+            </div>
+            <!-- Nominal width so that as the number changes it doesn't create/remove new lines -->
+            <p style="font-size: 4rem; width: 1px; display: inline-block; margin-bottom: 0;">
+              <span id="usdTotalCost" class="spin-number">
+                23456789100
+              </span>
+            </p>
+            <p style="font-weight: normal !important; margin-top: 0;">
+              based on 2023 GDP
+            </p>
+          </div>
+        </div>
+        <style>
+          figure {
+            width: calc(50% - 2rem);
+            height: 600px;
+            display: inline-block;
+            overflow: visible !important;
+          }
+          .highcharts-breadcrumbs-group {
+            display: none;
+          }
+        </style>
+        <figure id="container" data-focused="false"></figure>
+      </div>
+    </div>
     <h1 class="vertically-bottom">DAEDALUS Explore</h1>
-    <p style='margin-left: 400px; width: 75%;' class="vertically-bottom">You can download and use all amCharts 5 products for free. The only limitation of the free version is that a small amCharts logo will be displayed in the corner of your charts. If you’d rather have your charts without any branding, or you appreciate the software and would like to support its creators, please purchase a commercial license. Price: AMCharts maps costs £66 'per seat' annually, or £225 where user logins are required to access the site.</p>
   </div>
   <div id="chartdiv"></div>
 </body>
