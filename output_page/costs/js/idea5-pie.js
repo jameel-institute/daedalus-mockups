@@ -1,3 +1,5 @@
+const pieContainerName = 'containerForPie'
+
 const data = [{
     id: '0.0',
     parent: '',
@@ -130,7 +132,7 @@ let chartSeries = {
     }],
     animation: false,
 }
-let chartSettings = {
+let pieChartSettings = {
     chart: {
         options3d: {
             enabled: true
@@ -162,87 +164,94 @@ let chartSettings = {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const chart = Highcharts.chart('container', chartSettings);
+    const chart = Highcharts.chart(pieContainerName, pieChartSettings);
 
     const overlay = document.getElementById('overlay')
     const outputsDiv = document.querySelector('#outputs')
-    const container = document.querySelector("#container");
-    let containerOriginalWidth;
-    let containerOriginalHeight;
+    const container = document.getElementById(pieContainerName);
 
-    const overlayOriginalBackgroundColor = overlay.style.backgroundColor;
-    overlay.style.transition = "background-color 0.5s ease"
-    container.style.transition = "width 0.5s ease, height 0.5s ease, left 0.5s ease, right 0.5s ease, top 0.5s ease, bottom 0.5s ease";
-    container.style.position = 'fixed'
-    const originalLeft = '50%'
-    const originalTop = '0'
-    container.style.left = originalLeft
-    container.style.top = originalTop
+    if (!!overlay && !!outputsDiv) {
+        let containerOriginalWidth;
+        let containerOriginalHeight;
 
-    const focusPie = () => {
-        if (container.getAttribute("data-focused") !== "true") {
-            container.setAttribute("data-focused", "true");
-            console.log('focus')
-            // Using actual width and height rather than css attributes because (maybe?) Highcharts is deleting the original
-            // css values when it copies them into its chart, so they aren't present.
-            containerOriginalWidth = container.offsetWidth;
-            containerOriginalHeight = container.offsetHeight;
-            const newWidth = outputsDiv.offsetWidth * 0.7
-            const newLeft = '30%'
-            // container.style.width = "1000px";
-            // container.style.height = "1000px";
-            container.style.left = newLeft;
-            const heightOfInputs = (0 - document.getElementById('inputs').offsetHeight)
-            container.style.top = `${heightOfInputs / 2}px`
-            chart.setSize(newWidth, (0.8 * window.innerHeight))
+        const overlayOriginalBackgroundColor = overlay.style.backgroundColor;
+        overlay.style.transition = "background-color 0.5s ease"
+        container.style.transition = "width 0.5s ease, height 0.5s ease, left 0.5s ease, right 0.5s ease, top 0.5s ease, bottom 0.5s ease";
+        container.style.position = 'fixed'
+        const originalLeft = '50%'
+        const originalTop = '0'
+        container.style.left = originalLeft
+        container.style.top = originalTop
 
-            overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
-        }
-    }
+        const focusPie = () => {
+            if (container.getAttribute("data-focused") !== "true") {
+                container.setAttribute("data-focused", "true");
+                console.log('focus')
+                // Using actual width and height rather than css attributes because (maybe?) Highcharts is deleting the original
+                // css values when it copies them into its chart, so they aren't present.
+                containerOriginalWidth = container.offsetWidth;
+                containerOriginalHeight = container.offsetHeight;
+                const newWidth = outputsDiv.offsetWidth * 0.7
+                const newLeft = '30%'
+                // container.style.width = "1000px";
+                // container.style.height = "1000px";
+                container.style.left = newLeft;
+                const heightOfInputs = (0 - document.getElementById('inputs').offsetHeight)
+                container.style.top = `${heightOfInputs / 2}px`
+                chart.setSize(newWidth, (0.8 * window.innerHeight))
 
-    const unfocusPie = () => {
-        if (container.getAttribute("data-focused") !== "false") {
-            container.setAttribute("data-focused", "false");
-            console.log('unfocus')
-            // container.style.width = containerOriginalWidth;
-            // container.style.height = containerOriginalHeight;
-            container.style.left = originalLeft;
-            container.style.top = originalTop;
-            chart.setSize(containerOriginalWidth,containerOriginalHeight)
-
-            overlay.style.backgroundColor = overlayOriginalBackgroundColor;
-        }
-    }
-
-    const togglePieSize = () => {
-        if (container.getAttribute("data-focused") === "false") {
-            unfocusPie()
-        } else {
-            focusPie()
-        }
-    }
-    
-    const centralAreaOfChart = document.getElementsByClassName('highcharts-series highcharts-series-0 highcharts-sunburst-series highcharts-color-0 highcharts-tracker')[0]
-    centralAreaOfChart.addEventListener("click", () => {
-        focusPie();
-    });
-
-    document.querySelectorAll("*").forEach(element => {
-        element.addEventListener("click", (event) => {
-            let currentElement = event.target;
-            let hasHighchartsContainer = false;
-            while (currentElement) {
-                if (currentElement.classList && currentElement.classList.contains("highcharts-container")) {
-                    hasHighchartsContainer = true;
-                    break;
-                }
-                currentElement = currentElement.parentElement;
+                overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
             }
-            if (!hasHighchartsContainer) {
-                unfocusPie();
+        }
+
+        const unfocusPie = () => {
+            if (container.getAttribute("data-focused") !== "false") {
+                container.setAttribute("data-focused", "false");
+                console.log('unfocus')
+                // container.style.width = containerOriginalWidth;
+                // container.style.height = containerOriginalHeight;
+                container.style.left = originalLeft;
+                container.style.top = originalTop;
+                chart.setSize(containerOriginalWidth,containerOriginalHeight)
+
+                overlay.style.backgroundColor = overlayOriginalBackgroundColor;
             }
+        }
+
+        const togglePieSize = () => {
+            if (container.getAttribute("data-focused") === "false") {
+                unfocusPie()
+            } else {
+                focusPie()
+            }
+        }
+        
+        const centralAreaOfChart = container.getElementsByClassName('highcharts-series highcharts-series-0 highcharts-sunburst-series highcharts-color-0 highcharts-tracker')[0]
+        centralAreaOfChart.addEventListener("click", () => {
+            focusPie();
         });
-    });
 
-    togglePieSize();
+        document.querySelectorAll("*").forEach(element => {
+            element.addEventListener("click", (event) => {
+                if (container.dataset.active === "false") {
+                    return
+                }
+
+                let currentElement = event.target;
+                let hasHighchartsContainer = false;
+                while (currentElement) {
+                    if (currentElement.classList && currentElement.classList.contains("highcharts-container")) {
+                        hasHighchartsContainer = true;
+                        break;
+                    }
+                    currentElement = currentElement.parentElement;
+                }
+                if (!hasHighchartsContainer) {
+                    unfocusPie();
+                }
+            });
+        });
+
+        togglePieSize();
+    }
 });

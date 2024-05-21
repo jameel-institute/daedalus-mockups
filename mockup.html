@@ -552,6 +552,7 @@ const initializePageOnTheOutputBit = () => {
 <!-- <script src="./themes/avocado.js"></script> -->
 <script src="./themes/sunset.js"></script>
 <script src="./output_page/costs/js/idea5-pie.js"></script>
+<script src="./output_page/costs/js/idea6-cylinder.js"></script>
 
 <!-- HTML -->
 <body>
@@ -671,15 +672,44 @@ const initializePageOnTheOutputBit = () => {
             height: 600px;
             display: inline-block;
             overflow: visible !important;
+
+            &[data-active="false"] {
+              display: none;
+            }
+
+            &#containerForCylinder {
+              width: 70%;
+            }
           }
           .highcharts-breadcrumbs-group {
             display: none;
           }
         </style>
-        <figure id="container" data-focused="false"></figure>
+        <figure id="containerForPie" data-focused="false" data-active="true"></figure>
+        <figure id="containerForCylinder" data-focused="false" data-active="false"></figure>
       </div>
     </div>
-    <h1 class="vertically-bottom">DAEDALUS Explore</h1>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const switchToCylinder = document.getElementById('switchToCylinder')
+        const switchToPie = document.getElementById('switchToPie')
+
+        const containerForPie = document.getElementById('containerForPie')
+        const containerForCylinder = document.getElementById('containerForCylinder')
+
+        switchToCylinder.addEventListener('click', function () {
+          containerForCylinder.setAttribute("data-active", "true");
+          containerForPie.setAttribute("data-active", "false");
+        })
+
+        switchToPie.addEventListener('click', function () {
+          containerForPie.setAttribute("data-active", "true");
+          containerForCylinder.setAttribute("data-active", "false");
+        })
+      })
+    </script>
+    <h1 class="vertically-bottom">DAEDALU<a id="switchToCylinder" style="color: inherit;">S</a>
+     Ex<a id="switchToPie" style="color: inherit;">p</a>lore</h1>
   </div>
   <div id="chartdiv"></div>
 </body>
