@@ -321,7 +321,8 @@ document.addEventListener("DOMContentLoaded", function() {
     outputs.style.display = originalOutputsDisplay;
     document.getElementById('overlay').style.backgroundColor = "rgba(0, 55, 138, 0.3)";
 
-    animateNumbers();
+    // animateNumbers();
+
     const inputs = document.getElementById("inputs");
     inputs.style.transition = "transform 0.5s ease-in-out";
     const distanceToTop = inputs.getBoundingClientRect().bottom + window.pageYOffset;
@@ -336,6 +337,12 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById('overlay').style.backgroundColor = originalOverlayBackgroundColor
     });
     document.getElementById("overlay").appendChild(backButton);
+  });
+
+  document.addEventListener("keypress", (event) => {
+    if (event.key === "s") {
+        animateNumbers();
+    }
   });
 });
 
