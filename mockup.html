@@ -553,6 +553,8 @@ const initializePageOnTheOutputBit = () => {
 <script src="./themes/sunset.js"></script>
 <script src="./output_page/costs/js/idea5-pie.js"></script>
 <script src="./output_page/costs/js/idea6-cylinder.js"></script>
+<script src="./output_page/costs/js/idea7-cylinder-to-column.js"></script>
+
 
 <!-- HTML -->
 <body>
@@ -625,7 +627,7 @@ const initializePageOnTheOutputBit = () => {
         #outputsBackground {
           width: 80%;
           padding: 1rem;
-          background-color: rgba(0, 55, 138, 0.5);
+          background: linear-gradient(90deg, rgba(0, 55, 138, 0.5) 0%, rgba(0, 55, 138, 0.5) 35%, rgba(0, 212, 255, 0) 100%);
         }
       }
     </style>
@@ -687,28 +689,39 @@ const initializePageOnTheOutputBit = () => {
         </style>
         <figure id="containerForPie" data-focused="false" data-active="true"></figure>
         <figure id="containerForCylinder" data-focused="false" data-active="false"></figure>
+        <figure id="containerForBar" data-focused="false" data-active="false"></figure>
       </div>
     </div>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const switchToCylinder = document.getElementById('switchToCylinder')
         const switchToPie = document.getElementById('switchToPie')
+        const switchToBar = document.getElementById('switchToBar')
 
         const containerForPie = document.getElementById('containerForPie')
         const containerForCylinder = document.getElementById('containerForCylinder')
+        const containerForBar = document.getElementById('containerForBar')
 
         switchToCylinder.addEventListener('click', function () {
           containerForCylinder.setAttribute("data-active", "true");
           containerForPie.setAttribute("data-active", "false");
+          containerForBar.setAttribute("data-active", "false");
         })
 
         switchToPie.addEventListener('click', function () {
           containerForPie.setAttribute("data-active", "true");
           containerForCylinder.setAttribute("data-active", "false");
+          containerForBar.setAttribute("data-active", "false");
+        })
+
+        switchToBar.addEventListener('click', function () {
+          containerForBar.setAttribute("data-active", "true");
+          containerForCylinder.setAttribute("data-active", "false");
+          containerForPie.setAttribute("data-active", "false");
         })
       })
     </script>
-    <h1 class="vertically-bottom">DAEDALU<a id="switchToCylinder" style="color: inherit;">S</a>
+    <h1 class="vertically-bottom"><a id="switchToBar" style="color: inherit;">D</a>AEDALU<a id="switchToCylinder" style="color: inherit;">S</a>
      Ex<a id="switchToPie" style="color: inherit;">p</a>lore</h1>
   </div>
   <div id="chartdiv"></div>

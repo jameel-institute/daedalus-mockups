@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 containerOriginalWidth = container.offsetWidth;
                 containerOriginalHeight = container.offsetHeight;
                 const newWidth = outputsDiv.offsetWidth * 0.7
-                const newLeft = '30%'
+                const newLeft = '1Z0%'
                 // container.style.width = "1000px";
                 // container.style.height = "1000px";
                 container.style.left = newLeft;

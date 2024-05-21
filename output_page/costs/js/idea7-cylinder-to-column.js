@@ -1,6 +1,6 @@
-const cylinderContainerName = 'containerForCylinder'
+const barContainerName = 'containerForBar'
 
-const cylinderSeriesWithOneScenarios = [{
+const barSeriesWithOneScenarios = [{
     name: 'Education',
     data: [{
     y: 0.3,
@@ -73,7 +73,7 @@ const cylinderSeriesWithOneScenarios = [{
     }
 }]
 
-const cylinderSeriesWithThreeScenarios = [{
+const barSeriesWithThreeScenarios = [{
     name: 'Education',
     data: [{
     y: 0.3,
@@ -246,18 +246,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const depth = 1000
     const aVerticalDistance = '250'
     let dataIsBrokenDown = false;
-    let oneOrThreeScenariosSeries = cylinderSeriesWithOneScenarios;
+    let oneOrThreeScenariosSeries = barSeriesWithOneScenarios;
     let chart;
 
-    let cylinderChartSettings = {
+    let barChartSettings = {
         chart: {
-            type: 'cylinder',
+            type: 'column',
             options3d: {
-                enabled: true,
-                alpha: 25,
-                beta: 25,
-                viewDistance: 20,
-                depth: depth
+                enabled: false,
             },
             backgroundColor: 'transparent',
             style: {
@@ -297,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function () {
             useHTML: true
         },
         plotOptions: {
-            cylinder: {
+            column: {
                 stacking: 'normal',
                 depth: depth,
                 dataLabels: {
@@ -312,57 +308,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     borderRadius: '5',
                     backgroundColor: 'rgba(255,255,255,0.5)',
                 },
-                point: {
-                    events: {
-                        click: function() {
-                            const clickedName = this.series.name
-                            const seriesDataSource = oneOrThreeScenariosSeries.find(series => series.name === clickedName)
-
-                            if (dataIsBrokenDown) {
-                                this.series.chart.update(cylinderChartSettings);
-                                dataIsBrokenDown = false;
-                                return;
-                            }
-
-                            console.log(this.series.name)
-                            const matchingSeries = this.series.chart.series.find(series => series.name === clickedName);
-
-                            brokenDownData = matchingSeries.data[0].breakdownData
-                            newSeriesInstances = brokenDownData.map((bdd, index) => {
-                                return { name: `${clickedName}: ${bdd.name}`, data: [{y: bdd.y}], color: Highcharts.getOptions()[index] }
-                            })
-                            console.log(newSeriesInstances)
-                            const newSeriesCollection = oneOrThreeScenariosSeries.flatMap((series, index) => {
-                                const hexColor = Highcharts.getOptions().colors[index];
-                                const rgbaColor = `rgba(${parseInt(hexColor.slice(1, 3), 16)}, ${parseInt(hexColor.slice(3, 5), 16)}, ${parseInt(hexColor.slice(5, 7), 16)}, 0.1)`;
-                                return series.name === clickedName ? newSeriesInstances : {...series, color: rgbaColor};
-                            });
-
-                            console.log(oneOrThreeScenariosSeries)
-                            console.log(newSeriesCollection)
-
-                            const newChartSettings = {...cylinderChartSettings, series: newSeriesCollection}
-
-                            chart.destroy()
-                            chart = Highcharts.chart(cylinderContainerName, newChartSettings);
-
-                            dataIsBrokenDown = true;
-                        }
-                    }
-                }
             }
         },
         series: oneOrThreeScenariosSeries,
     }
 
-    chart = Highcharts.chart(cylinderContainerName, cylinderChartSettings);
+    chart = Highcharts.chart(barContainerName, barChartSettings);
 
 
     const overlay = document.getElementById('overlay')
     const outputsDiv = document.querySelector('#outputs')
 
     if (!!overlay && !!outputsDiv) {
-        const container = document.getElementById(cylinderContainerName);
+        const container = document.getElementById(barContainerName);
         let containerOriginalWidth;
         let containerOriginalHeight;
 
@@ -370,12 +328,12 @@ document.addEventListener('DOMContentLoaded', function () {
         overlay.style.transition = "background-color 0.5s ease"
         container.style.transition = "width 0.5s ease, height 0.5s ease, left 0.5s ease, right 0.5s ease, top 0.5s ease, bottom 0.5s ease";
         container.style.position = 'fixed'
-        const originalLeft = '30%'
+        const originalLeft = '50%'
         const originalTop = `${(0-aVerticalDistance)}px`
         container.style.left = originalLeft
         container.style.top = originalTop
 
-        const focusCylinder = () => {
+        const focusBar = () => {
             if (container.getAttribute("data-focused") !== "true") {
                 container.setAttribute("data-focused", "true");
                 console.log('focus')
@@ -396,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        const unfocusCylinder = () => {
+        const unfocusBar = () => {
             if (container.getAttribute("data-focused") !== "false") {
                 container.setAttribute("data-focused", "false");
                 console.log('unfocus')
@@ -410,11 +368,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        const toggleCylinderSize = () => {
+        const toggleBarSize = () => {
             if (container.getAttribute("data-focused") === "false") {
-                unfocusCylinder()
+                unfocusBar()
             } else {
-                focusCylinder()
+                focusBar()
             }
         }
         
@@ -422,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const centralAreaOfChart = container.getElementsByClassName(centralAreaOfChartClassName)[0]
 
         centralAreaOfChart.addEventListener("click", () => {
-            focusCylinder();
+            focusBar();
         });
 
         document.addEventListener("keypress", (event) => {
@@ -431,16 +389,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             if (event.key === "f") {
-                container.dataset.focused === "true" ? unfocusCylinder() : focusCylinder();
+                container.dataset.focused === "true" ? unfocusBar() : focusBar();
             }
 
 
             if (event.key === "c") {
-                oneOrThreeScenariosSeries = (oneOrThreeScenariosSeries === cylinderSeriesWithThreeScenarios) ? cylinderSeriesWithOneScenarios : cylinderSeriesWithThreeScenarios;
+                oneOrThreeScenariosSeries = (oneOrThreeScenariosSeries === barSeriesWithThreeScenarios) ? barSeriesWithOneScenarios : barSeriesWithThreeScenarios;
 
 
                 chart.destroy();
-                chart = Highcharts.chart(cylinderContainerName, {...cylinderChartSettings, series: oneOrThreeScenariosSeries});
+                chart = Highcharts.chart(barContainerName, {...barChartSettings, series: oneOrThreeScenariosSeries});
             }
         });
 
@@ -460,11 +418,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     currentElement = currentElement.parentElement;
                 }
                 if (!isInCentralAreaOfChart) {
-                    unfocusCylinder();
+                    unfocusBar();
                 }
             });
         });
 
-        toggleCylinderSize();
+        toggleBarSize();
     }
 })
