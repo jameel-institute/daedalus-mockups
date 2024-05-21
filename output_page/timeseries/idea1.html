@@ -204,7 +204,7 @@ mouse/touch event handler to bind the charts together.
  * built-in events with handlers defined on the parent element.
  */
 ['mousemove', 'touchmove', 'touchstart'].forEach(function (eventType) {
-    document.getElementById('container').addEventListener(
+    document.getElementById('container1').addEventListener(
         eventType,
         function (e) {
             let chart,
@@ -328,7 +328,7 @@ Highcharts.ajax({
 
             const chartDiv = document.createElement('div');
             chartDiv.className = 'chart';
-            document.getElementById('container').appendChild(chartDiv);
+            document.getElementById('container1').appendChild(chartDiv);
 
             Highcharts.chart(chartDiv, {
                 chart: {
@@ -408,7 +408,7 @@ Highcharts.ajax({
         <p>Advance investment in vaccines drives the level of vaccination uptake across the population. This affects the rate at which infection spreads.</p>
         <p>The rate of spread of infection, combined with the fixed health service capacity, have some affect on the government policy response.</p>
         <p>In turn, the policy response drives the infection rate, introducing a feedback loop.</p>
-        <div id="container"></div>
+        <div id="container1"></div>
         <div style="height: 400px">
             <hr>
         </div>
