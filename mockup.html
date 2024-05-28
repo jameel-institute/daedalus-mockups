@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <link rel="stylesheet" href="./fonts/style.css">
   <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+
+  <!-- Multiple select -->
+  <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.7.0/dist/multiple-select.min.css">
 
   <title>Mockup 1</title>
 </head>
@@ -120,7 +123,7 @@
           column-gap: 0.5rem;
         }
         
-        button {
+        button:not(.ms-choice) {
           border-radius: 1000px;
           filter: brightness(1.1);
           margin: unset;
@@ -173,7 +176,7 @@ i {
   display: inline-block;
 }
 
-button {
+button:not(.ms-choice) {
   max-width: 16rem;
   margin: auto;
   padding: 0.5rem;
@@ -196,8 +199,41 @@ label {
 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/themes/Responsive.js"></script>
 
+
+<!-- Multiple select -->
+<script src="./jquery-3.7.1.min.js"></script>
+<script src="./multiple-select.min.js"></script>
+
 <script>
 const countriesData = {"AF":"Afghanistan","AX":"Aland Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"Andorra","AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AW":"Aruba","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BT":"Bhutan","BO":"Bolivia, Plurinational State of","BQ":"Bonaire, Sint Eustatius and Saba","BA":"Bosnia and Herzegovina","BW":"Botswana","BV":"Bouvet Island","BR":"Brazil","IO":"British Indian Ocean Territory","BN":"Brunei Darussalam","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","KH":"Cambodia","CM":"Cameroon","CA":"Canada","CV":"Cape Verde","KY":"Cayman Islands","CF":"Central African Republic","TD":"Chad","GB-CHA":"Channel Islands","CL":"Chile","CN":"China","CX":"Christmas Island","CC":"Cocos (Keeling) Islands","CO":"Colombia","KM":"Comoros","CG":"Congo","CD":"Congo, the Democratic Republic of the","CK":"Cook Islands","CR":"Costa Rica","CI":"Cote d'Ivoire","HR":"Croatia","CU":"Cuba","CW":"Curacao","CY":"Cyprus","CZ":"Czech Republic","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Equatorial Guinea","ER":"Eritrea","EE":"Estonia","ET":"Ethiopia","FK":"Falkland Islands (Malvinas)","FO":"Faroe Islands","FJ":"Fiji","FI":"Finland","FR":"France","GF":"French Guiana","PF":"French Polynesia","TF":"French Southern Territories","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GI":"Gibraltar","GR":"Greece","GL":"Greenland","GD":"Grenada","GP":"Guadeloupe","GU":"Guam","GT":"Guatemala","GG":"Guernsey","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HM":"Heard Island and McDonald Islands","VA":"Holy See (Vatican City State)","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran, Islamic Republic of","IQ":"Iraq","IE":"Ireland","IM":"Isle of Man","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JE":"Jersey","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KI":"Kiribati","KP":"Korea, Democratic People's Republic of","KR":"Korea, Republic of","XK":"Kosovo","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Lao People's Democratic Republic","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MH":"Marshall Islands","MQ":"Martinique","MR":"Mauritania","MU":"Mauritius","YT":"Mayotte","MX":"Mexico","FM":"Micronesia, Federated States of","MD":"Moldova, Republic of","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MS":"Montserrat","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NR":"Nauru","NP":"Nepal","NL":"Netherlands","NC":"New Caledonia","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NU":"Niue","NF":"Norfolk Island","MK":"North Macedonia","MP":"Northern Mariana Islands","NO":"Norway","OM":"Oman","PK":"Pakistan","PW":"Palau","PS":"Palestinian, State of","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PN":"Pitcairn","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RE":"Reunion","RO":"Romania","RU":"Russian Federation","RW":"Rwanda","BL":"Saint Barthelemy","SH":"Saint Helena, Ascension and Tristan da Cunha","KN":"Saint Kitts and Nevis","LC":"Saint Lucia","MF":"Saint Martin (French Part)","PM":"Saint Pierre and Miquelon","VC":"Saint Vincent and the Grenadines","WS":"Samoa","SM":"San Marino","ST":"Sao Tome and Principe","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SX":"Sint Maarten (Dutch Part)","SK":"Slovakia","SI":"Slovenia","SB":"Solomon Islands","SO":"Somalia","ZA":"South Africa","GS":"South Georgia and the South Sandwich Islands","SS":"South Sudan","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SJ":"Svalbard and Jan Mayen","SZ":"Swaziland","SE":"Sweden","CH":"Switzerland","SY":"Syrian Arab Republic","TW":"Taiwan","TJ":"Tajikistan","TZ":"Tanzania, United Republic of","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TK":"Tokelau","TO":"Tonga","TT":"Trinidad and Tobago","TN":"Tunisia","TM":"Turkmenistan","TC":"Turks and Caicos Islands","TV":"Tuvalu","TR":"T\u00fcrkiye","UG":"Uganda","UA":"Ukraine","AE":"United Arab Emirates","GB":"United Kingdom","US":"United States","UM":"United States Minor Outlying Islands","UY":"Uruguay","UZ":"Uzbekistan","VU":"Vanuatu","VE":"Venezuela, Bolivarian Republic of","VN":"Viet Nam","VG":"Virgin Islands, British","VI":"Virgin Islands, U.S.","WF":"Wallis and Futuna","EH":"Western Sahara","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe"}
+const maxCountriesToCompare = 7;
+
+let $select;
+$(document).ready(function() {
+  const runMultipleAnalysesButton = document.getElementById("runMultipleAnalysesButton");
+
+  $select = $('#modalCountrySelect').multipleSelect({
+    displayTitle: true,
+    data: Object.entries(countriesData).map(([code, name]) => ({ value: code, text: name })),
+    minimumCountSelected: maxCountriesToCompare, // The number that need to be selected before the list starts saying 'M of N selected' instead of listing the selections
+    onClick(view) {
+      const selectedCount = $select.multipleSelect('getSelects').length
+      if (selectedCount >= maxCountriesToCompare) {
+        $select.multipleSelect('uncheck', view.value);
+      }
+      if (selectedCount > 0) {
+        runMultipleAnalysesButton.innerText = selectedCount === 1 ? "Run analysis" : `Run ${selectedCount} analyses`;
+        runMultipleAnalysesButton.style.visibility = "visible";
+      } else {
+        runMultipleAnalysesButton.style.visibility = "hidden";
+      }
+    },
+  });
+
+  $select.multipleSelect('refresh');
+});
+
+
 
 // How long you want the animation to take, in ms
 const animationDuration = 5000;
@@ -243,7 +279,14 @@ let originalDisplayValueOfFields;
 
 document.addEventListener("DOMContentLoaded", function() {
   const countrySelect = document.getElementById("countrySelect");
+  const diseaseField = document.getElementById("diseaseField");
+  const responseField = document.getElementById("responseField");
+  const investmentField = document.getElementById("investmentField");
   const runAnalysisButton = document.getElementById("runAnalysisButton");
+  const buttonToExploreMoreScenarios = document.getElementById("buttonToExploreMoreScenarios");
+  const modalOverlay = document.getElementById("modalOverlay");
+  const modal = document.getElementById("modal");
+
 
   Object.entries(countriesData).forEach(([code, name]) => {
     const option = document.createElement("option");
@@ -258,11 +301,13 @@ document.addEventListener("DOMContentLoaded", function() {
   // document.querySelector("#emptyInvestmentOption").selected = true;
 
   originalDisplayValueOfFields = document.getElementById("diseaseField").style.display;
-  document.getElementById("diseaseField").style.display = "none";
-  document.getElementById("responseField").style.display = "none";
-  document.getElementById("investmentField").style.display = "none";
-  runAnalysisButton.style.display = "none";
 
+  diseaseField.style.display = "none";
+  responseField.style.display = "none";
+  investmentField.style.display = "none";
+  runAnalysisButton.style.display = "none";
+  buttonToExploreMoreScenarios.style.display = "none";
+  modalOverlay.style.display = "none";
 
   const withButtonsDivs = document.querySelectorAll(".with-buttons");
   withButtonsDivs.forEach(buttonContainer => {
@@ -341,11 +386,22 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById('overlay').style.backgroundColor = originalOverlayBackgroundColor
     });
     document.getElementById("overlay").appendChild(backButton);
+    document.getElementById("buttonToExploreMoreScenarios").style.display = "block";
   });
 
   document.addEventListener("keypress", (event) => {
     if (event.key === "s") {
         animateNumbers();
+    }
+  });
+
+  buttonToExploreMoreScenarios.addEventListener("click", function() {
+    document.getElementById("modalOverlay").style.display = "block";
+    buttonToExploreMoreScenarios.style.display = "none";
+    inputs.style.visibility = "hidden";
+    const backButton = document.querySelector(".back-to-inputs-button");
+    if (backButton) {
+      backButton.style.visibility = "hidden";
     }
   });
 });
@@ -456,6 +512,12 @@ getCountryTargetAndDataItem = function(id) {
   return {target: target, dataItem: dataItem};
 }
 
+const updateCountrySelectionInVariousPlaces = (id) => {
+  Array.from(document.querySelectorAll(".countrySummary")).forEach((el) => { el.innerText = countriesData[id] });
+  // $select.multipleSelect('check', id);
+  // $select.multipleSelect('refresh');
+}
+
 selectCountry = function(id) {
   const {target, dataItem} = getCountryTargetAndDataItem(id);
   if (target) {
@@ -474,10 +536,11 @@ selectCountry = function(id) {
         polygonSeries.zoomToDataItem(target.dataItem)
         // zoomToCentroid(centroid);
         document.getElementById("overlay").style.zIndex = "1";
-        document.getElementById("overlay").style.transition = "background-color 1s ease";
         document.getElementById("overlay").style.backgroundColor = "rgba(255, 255, 255, 0.3)";
       }, rotationDuration); // Wait for rotation before trying to zoom
     }
+
+    updateCountrySelectionInVariousPlaces(id);
   }
 }
 
@@ -493,6 +556,7 @@ window.handleSelectCountryFromDropDown = function(id) {
   previousPolygon = target;
 
   document.getElementById("diseaseField").style.display = originalDisplayValueOfFields;
+  updateCountrySelectionInVariousPlaces(id);
 }
 
 // Set clicking on "water" to zoom out
@@ -570,6 +634,211 @@ const initializePageOnTheOutputBit = () => {
 
 <!-- HTML -->
 <body>
+  <script>
+    
+  </script>
+  <div id="modalOverlay">
+    <style>
+      #modal p {
+        font-weight: normal !important;
+      }
+    </style>
+    <div id="modal" class="horizontally-center">
+      <h2>Explore more scenarios</h2>
+      <p>
+        Your current scenario: A <b class="diseaseSummary">SARS-Cov-1</b> pandemic in <b class="countrySummary"></b>, with a policy response of <b class="responseSummary">elimination</b> and a <b class="investmentSummary">low</b> advance investment in vaccination.
+      </p>
+      <style>
+        .accordion label {
+          font-weight: normal !important;
+        }
+        button.accordion-button {
+          margin: 0.5rem;
+          background: none;
+          border: none;
+          padding: 0;
+          font-family: inherit;
+          font-size: inherit;
+          color: inherit;
+          cursor: pointer;
+          text-decoration: underline;
+          display: block;
+
+          &::before {
+            content: "";
+            display: inline-block;
+            margin-right: 0.5rem;
+            width: 10px;
+            height: 10px;
+            background-image: url("./assets/caret-up.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+
+          &.active::before {
+            background-image: url("./assets/caret-down.svg");
+          }
+        }
+        .accordion-content {
+          display: none;
+          padding: 1rem;
+          padding-top: 0.5rem;
+        }
+      </style>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const accordionButtons = document.getElementsByClassName("accordion-button");
+
+          Array.from(accordionButtons).forEach((button) => {
+            button.addEventListener("click", function() {
+              const buttonAlreadyActive = this.classList.contains("active");
+
+              Array.from(accordionButtons).forEach((btn) => {
+                btn.classList.remove("active");
+                btn.nextElementSibling.style.display = "none";
+                const checkboxes = btn.nextElementSibling.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach((checkbox) => {
+                  checkbox.checked = false;
+                });
+                $select.multipleSelect('uncheckAll');
+                runMultipleAnalysesButton.style.visibility = "hidden";
+              });
+
+              if (!buttonAlreadyActive) {
+                this.classList.add("active");
+                this.nextElementSibling.style.display = "block";
+                runMultipleAnalysesButton.style.visibility = "visible";
+                const checkboxes = this.nextElementSibling.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach((checkbox) => {
+                  checkbox.checked = true;
+                });
+                $select.multipleSelect('uncheckAll');
+              }
+            });
+          })
+        });
+      </script>
+      <div>
+        <div class="accordion">
+          <button class="accordion-button">Explore more disease pathogens</button>
+          <div class="accordion-content">
+            <p>Scenarios to include:</p>
+            <input type="checkbox" id="option1" value="1">
+            <label for="option1">SARS-CoV-1</label><br>
+            <input type="checkbox" id="option2" value="2">
+            <label for="option2">SARS-CoV-2 pre-alpha (wildtype)</label><br>
+            <input type="checkbox" id="option3" value="3">
+            <label for="option3">SARS-CoV-2 omicron</label><br>
+            <input type="checkbox" id="option4" value="4">
+            <label for="option4">SARS-CoV-2 delta</label><br>
+            <input type="checkbox" id="option5" value="5">
+            <label for="option5">Influenza 2009 (Swine flu)</label><br>
+            <input type="checkbox" id="option6" value="6">
+            <label for="option6">Influenza 1957</label><br>
+            <input type="checkbox" id="option7" value="7">
+            <label for="option7">Influenza 1918 (Spanish flu)</label><br>
+          </div>
+          <button class="accordion-button">Explore more policy responses</button>
+          <div class="accordion-content">
+            <p>Scenarios to include:</p>
+            <input type="checkbox" id="option8" value="8">
+            <label for="option8">No closures</label><br>
+            <input type="checkbox" id="option9" value="9">
+            <label for="option9">School closures</label><br>
+            <input type="checkbox" id="option10" value="10">
+            <label for="option10">Business closures</label><br>
+            <input type="checkbox" id="option11" value="11">
+            <label for="option11">Elimination</label><br>
+          </div>
+          <button class="accordion-button">Explore more investment levels</button>
+          <div class="accordion-content">
+            <p>Scenarios to include:</p>
+            <input type="checkbox" id="option12" value="12">
+            <label for="option12">None</label><br>
+            <input type="checkbox" id="option13" value="13">
+            <label for="option13">Low</label><br>
+            <input type="checkbox" id="option14" value="14">
+            <label for="option14">Medium</label><br>
+            <input type="checkbox" id="option15" value="15">
+            <label for="option15">High</label><br>
+          </div>
+          <button class="accordion-button">Explore more countries</button>
+          
+          <div class="accordion-content">
+            <p>Countries to include (up to 7):</p>
+            <style>
+              /* Undo some styles from mvp.css that conflict with multiple-select.js */
+              .accordion-content {
+                button {
+                  margin: unset;
+                  font-size: unset;
+
+                  &:hover {
+                    filter: unset;
+                  }
+                }
+
+                input {
+                  max-width: unset;
+                }
+              }
+              .ms-parent {
+                width: 100% !important;
+              }
+            </style>
+            <select
+              id="modalCountrySelect"
+              data-select-all="false"
+              data-filter="true"
+              data-filter-placeholder="Start typing a country's name"
+              data-filter-accept-on-enter="true"
+              multiple>
+            </select>
+            <p>
+              Note: I think I should shop around for a different select component as this one is missing these features:
+              <ul>
+                <li>It doesn't let you list the selected options first</li>
+                <li>It doesn't let you set a maximum number of selections (natively)</li>
+                <li>It doesn't let you directly remove a selection from the list without opening the dropdown</li>
+              </ul>
+            </p>
+            <style>
+              #runMultipleAnalysesButton {
+                visibility: hidden;
+              }
+            </style>
+            <script>
+              document.addEventListener("DOMContentLoaded", function() {
+                const runMultipleAnalysesButton = document.getElementById("runMultipleAnalysesButton");
+                runMultipleAnalysesButton.style.visibility = "hidden";
+
+                const checkBoxesInAccordionContent = document.querySelectorAll(".accordion-content input[type='checkbox']");
+                Array.from(checkBoxesInAccordionContent).forEach((checkbox) => {
+                  checkbox.addEventListener("change", function() {
+                    const someCheckboxesChecked = Array.from(checkBoxesInAccordionContent).some(checkbox => checkbox.checked);
+                    if (someCheckboxesChecked) {
+                      const numberOfScenariosToRun = Array.from(checkBoxesInAccordionContent).filter(checkbox => checkbox.checked).length;
+                      runMultipleAnalysesButton.innerText = numberOfScenariosToRun === 1 ? "Run analysis" : `Run ${numberOfScenariosToRun} analyses`;
+                      runMultipleAnalysesButton.style.visibility = "visible";
+                    } else {
+                      runMultipleAnalysesButton.style.visibility = "hidden";
+                    }
+                  });
+                });
+
+                runMultipleAnalysesButton.addEventListener('click', function() {
+                  window.location.href = './comparisons/idea-1.html';
+                });
+              });
+            </script>
+          </div>
+          <div style="text-align: right;">
+            <button id="runMultipleAnalysesButton">Run analyses</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="overlay">
     <div id="inputs">
       <div class="field-row">
@@ -667,6 +936,28 @@ const initializePageOnTheOutputBit = () => {
         height: 0;
         width: 50%;
       }
+      #buttonToExploreMoreScenarios {
+        position: absolute;
+        right: 0;
+        bottom: -100px;
+      }
+      #modalOverlay {
+        padding: 10px;
+        z-index: 2;
+        position: fixed;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        height: 100dvh;
+      }
+      #modal {
+        position: fixed;
+        color: black;
+        background-color: #e6e6fa;
+        box-shadow: 2px 2px 2px black;
+        padding: 16px;
+        border-radius: 10px;
+        width: 85%;
+      }
     </style>
     <div id="outputs" class="horizontally-center" style="color: white;">
       <div id="outputsBackground" class="horizontally-center">
@@ -711,6 +1002,7 @@ const initializePageOnTheOutputBit = () => {
         <figure id="containerForBar" data-focused="false" data-active="false"></figure>
         <div id="timeseriesContainer"></div>
       </div>
+      <button id="buttonToExploreMoreScenarios">&#x27A1; Explore more scenarios</button>
     </div>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
