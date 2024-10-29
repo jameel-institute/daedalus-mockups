@@ -639,8 +639,28 @@ const initializePageOnTheOutputBit = () => {
   </script>
   <div id="modalOverlay">
     <style>
-      #modal p {
-        font-weight: normal !important;
+      #modal {
+        position: fixed;
+        color: black;
+        background-color: #e6e6fa;
+        box-shadow: 2px 2px 2px black;
+        padding: 16px;
+        border-radius: 10px;
+        width: 85%;
+        max-width: 1400px;
+
+        p {
+          font-weight: normal !important;
+        }
+      }
+
+      #modalOverlay {
+        padding: 10px;
+        z-index: 2;
+        position: fixed;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        height: 100dvh;
       }
     </style>
     <div id="modal" class="horizontally-center">
@@ -893,7 +913,7 @@ const initializePageOnTheOutputBit = () => {
             <button>High</button>
           </div>
         </div>
-      </div>
+      </div>  
       <button id="runAnalysisButton">Run analysis</button>
     </div>
     <style>
@@ -940,23 +960,6 @@ const initializePageOnTheOutputBit = () => {
         position: absolute;
         right: 0;
         bottom: -100px;
-      }
-      #modalOverlay {
-        padding: 10px;
-        z-index: 2;
-        position: fixed;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.4);
-        height: 100dvh;
-      }
-      #modal {
-        position: fixed;
-        color: black;
-        background-color: #e6e6fa;
-        box-shadow: 2px 2px 2px black;
-        padding: 16px;
-        border-radius: 10px;
-        width: 85%;
       }
     </style>
     <div id="outputs" class="horizontally-center" style="color: white;">
